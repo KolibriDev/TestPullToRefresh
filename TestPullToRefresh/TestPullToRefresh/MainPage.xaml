@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestPullToRefresh.MainPage" >
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+          <DataTemplate x:Key="PersonTemplate">
+            <ViewCell>
+                <Grid Margin="16,16,0,0">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <Label Grid.Column="0" Text="{Binding Name }" FontAttributes="Bold"/>
+                  <Label Grid.Column="1" Text="{Binding Age }" />
+                  <Label Grid.Column="2" Text="{Binding Country }" />
+                </Grid>
+            </ViewCell>
+          </DataTemplate>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+  <Grid Margin="0,20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <ActivityIndicator Grid.Row="0"
+                       IsVisible="{Binding Loading}"
+                       IsRunning="{Binding Loading}" />
+    <ListView Grid.Row="1"
+              ItemsSource="{Binding PersonList}"
+              ItemTemplate="{StaticResource PersonTemplate}"
+              IsPullToRefreshEnabled="True"
+              IsRefreshing="{Binding Refreshing}"
+              RefreshCommand="{Binding RefreshCommand}" >
+    </ListView>
+  </Grid>
+  
+</ContentPage>
