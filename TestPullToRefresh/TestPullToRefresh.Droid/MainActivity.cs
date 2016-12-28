@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using TestPullToRefresh.Droid;
+using Xamarin.Forms;
 
 namespace TestPullToRefresh.Droid
 {
@@ -19,6 +20,8 @@ namespace TestPullToRefresh.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+
+            UserDialogs.Init(() => (Activity)Forms.Context);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());

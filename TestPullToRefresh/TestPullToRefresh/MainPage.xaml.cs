@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using TestPullToRefreshXaml;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace TestPullToRefresh
         public MainPage()
         {
             InitializeComponent();
-            this.BindingContext = new MainPageViewModel();
+            this.BindingContext = new MainPageViewModel(UserDialogs.Instance);
         }
 
         protected override async void OnAppearing()

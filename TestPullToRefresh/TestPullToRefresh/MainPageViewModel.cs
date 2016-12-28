@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using TestPullToRefresh;
 using Xamarin.Forms;
 
@@ -11,10 +12,12 @@ namespace TestPullToRefreshXaml
     {
         private bool _loading;
         private bool _refreshing;
+        private IUserDialogs _dialogService;
         private List<Person> _personList;
 
-        public MainPageViewModel()
+        public MainPageViewModel(IUserDialogs dialogService)
         {
+            this._dialogService = dialogService;
             this.RefreshCommand = new Command(this.RefreshData);
         }
 
@@ -36,6 +39,7 @@ namespace TestPullToRefreshXaml
             catch (Exception)
             {
                 this.PersonList = new List<Person>();
+                this._dialogService.Alert("Error occured", "Exception", "Ok");
             }
             finally
             {
