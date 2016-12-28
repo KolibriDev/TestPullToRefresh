@@ -21,7 +21,7 @@ namespace TestPullToRefresh
         {
             base.OnAppearing();
             var vm = (MainPageViewModel)this.BindingContext;
-            await vm.LoadData();
+            await vm.LoadData(false);
         }
     }
 }

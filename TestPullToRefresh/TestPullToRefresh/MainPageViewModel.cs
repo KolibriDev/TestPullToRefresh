@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using TestPullToRefresh;
@@ -22,13 +23,24 @@ namespace TestPullToRefreshXaml
         /// </summary>
         public Command RefreshCommand { get; set; }
 
-        public async Task LoadData()
+        public async Task LoadData(bool throwException)
         {
-            this.Loading = true;
-            this.Refreshing = false;
-            await Task.Delay(3000);
-            this.LoadItems();
-            this.Loading = false;
+            try
+            {
+                this.Loading = true;
+                this.Refreshing = false;
+
+                await Task.Delay(1000);
+                this.LoadItems(throwException);
+            }
+            catch (Exception)
+            {
+                this.PersonList = new List<Person>();
+            }
+            finally
+            {
+                this.Loading = false;
+            }
         }
 
         public List<Person> PersonList
@@ -81,11 +93,16 @@ namespace TestPullToRefreshXaml
 
         private async void RefreshData()
         {
-            await this.LoadData();
+            await this.LoadData(true);
         }
 
-        private void LoadItems()
+        private void LoadItems(bool throwException)
         {
+            if (throwException)
+            {
+                throw new Exception();
+            }
+
             this.PersonList = new List<Person>
             {
                 new Person { Name = "Steve", Age = 21, Country = "USA" },
